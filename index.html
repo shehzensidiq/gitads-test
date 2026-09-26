@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitAds Test Page</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ===== AD SLOT: generic banner styling (remove/replace with real snippet) ===== */
+  .ad-slot {
+    background: repeating-linear-gradient(45deg, #1c2128, #1c2128 12px, #21262d 12px, #21262d 24px);
+    border: 2px dashed #f85149;
+    color: #f85149;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* ===== Layout blocks ===== */
+  .block-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13, 17, 23, 0.95);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .logo { font-weight: 700; font-size: 18px; }
+  .logo span { color: var(--accent); }
+  nav a { color: var(--muted); text-decoration: none; margin-left: 20px; font-size: 14px; }
+  nav a:hover { color: var(--text); }
+  .header-ad {
+    height: 48px;
+    width: 320px;
+    border-radius: 6px;
+  }
+
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 40px; margin-bottom: 14px; }
+  .hero p { color: var(--muted); max-width: 640px; margin: 0 auto 24px; font-size: 17px; }
+  .hero-ad {
+    height: 90px;
+    width: 100%;
+    max-width: 728px;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+
+  .main-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 32px;
+    align-items: start;
+  }
+  article.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 28px;
+  }
+  article.card h2 { margin-bottom: 10px; }
+  article.card .meta { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
+  article.card p { margin-bottom: 14px; color: #c9d1d9; }
+  .in-article-ad {
+    height: 250px;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 8px;
+  }
+
+  aside.sidebar { position: sticky; top: 90px; }
+  .sidebar .ad-slot { margin-bottom: 20px; border-radius: 8px; }
+  .sidebar-300x600 { height: 600px; }
+  .sidebar-300x250 { height: 250px; }
+  .widget {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .widget h3 { font-size: 15px; margin-bottom: 12px; }
+  .widget ul { list-style: none; }
+  .widget li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--muted); }
+  .widget li:last-child { border-bottom: none; }
+
+  /* Full-width mid-page block */
+  .fullwidth-band {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+    padding: 0 24px;
+  }
+  .band-ad {
+    height: 120px;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  /* Card grid block */
+  .card-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .mini-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .mini-card h4 { margin-bottom: 8px; font-size: 15px; }
+  .mini-card p { color: var(--muted); font-size: 13px; }
+  .mini-card .ad-slot {
+    height: 90px;
+    margin-top: 14px;
+    border-radius: 6px;
+    font-size: 12px;
+  }
+
+  footer.site {
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .footer-ad {
+    height: 90px;
+    max-width: 970px;
+    width: 100%;
+    margin: 0 auto 18px;
+    border-radius: 8px;
+  }
+
+  /* Floating / fixed corner block */
+  .floating-ad {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    width: 280px;
+    height: 80px;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    z-index: 200;
+  }
+
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+    aside.sidebar { position: static; }
+    .card-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 30px; }
+    .floating-ad { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER (sticky) ================= -->
+<header class="site">
+  <div class="header-inner">
+    <div class="logo">GitAds <span>Test</span></div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Articles</a>
+      <a href="#">About</a>
+    </nav>
+    <!-- AD SLOT 1: header banner (sticky, stays pinned while scrolling) -->
+    <div class="ad-slot header-ad" id="ad-header">AD SLOT 1 &mdash; header 320&times;48</div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="block-label">Block: Hero</div>
+  <h1>Single-Page Test Site</h1>
+  <p>One HTML file, every common ad placement zone on one page: sticky header, hero banner, in-article, sticky sidebar, full-width band, card grid, footer, and a floating corner unit.</p>
+  <!-- AD SLOT 2: hero leaderboard (728x90) -->
+  <div class="ad-slot hero-ad" id="ad-hero">AD SLOT 2 &mdash; hero leaderboard 728&times;90</div>
+</section>
+
+<!-- ================= MAIN GRID: articles + sticky sidebar ================= -->
+<div class="main-grid">
+  <main>
+    <div class="block-label">Block: Article feed</div>
+    <article class="card">
+      <h2>Why I Built This</h2>
+      <div class="meta">By Test Author &middot; Sep 26, 2026 &middot; 3 min read</div>
+      <p>This page exists purely to test GitAds on a live site. Every dashed red box is a placement zone. Swap the placeholder div for your real ad snippet and watch how the format renders in context.</p>
+      <!-- AD SLOT 3: in-article (inside first article) -->
+      <div class="ad-slot in-article-ad" id="ad-article-1">AD SLOT 3 &mdash; in-article 250</div>
+      <p>The article text continues below the ad unit so you can check spacing, wrap behavior, and how in-content ads affect reading flow. Scroll down to test the sticky header and sidebar behavior.</p>
+    </article>
+
+    <article class="card">
+      <h2>Placement Cheat Sheet</h2>
+      <div class="meta">By Test Author &middot; Sep 26, 2026 &middot; 2 min read</div>
+      <p>Slot 1: sticky header &middot; Slot 2: hero 728&times;90 &middot; Slot 3: in-article &middot; Slot 4/5: sticky sidebar &middot; Slot 6: full-width band &middot; Slot 7/8/9: card grid &middot; Slot 10: footer &middot; Slot 11: floating corner (desktop only).</p>
+      <p>Each slot has an <code>id</code> like <code>ad-hero</code> so you can target it precisely in your GitAds config.</p>
+    </article>
+  </main>
+
+  <!-- ================= SIDEBAR (sticky) ================= -->
+  <aside class="sidebar">
+    <div class="block-label">Block: Sticky sidebar</div>
+    <!-- AD SLOT 4: sidebar skyscraper 300x600 -->
+    <div class="ad-slot sidebar-300x600" id="ad-sidebar-1">AD SLOT 4 &mdash; sidebar 300&times;600</div>
+    <!-- AD SLOT 5: sidebar medium rectangle 300x250 -->
+    <div class="ad-slot sidebar-300x250" id="ad-sidebar-2">AD SLOT 5 &mdash; sidebar 300&times;250</div>
+    <div class="widget">
+      <h3>Popular Posts</h3>
+      <ul>
+        <li>Getting started with GitAds</li>
+        <li>Open-source monetization 101</li>
+        <li>Leaderboards that actually work</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<!-- ================= FULL-WIDTH BAND ================= -->
+<div class="fullwidth-band">
+  <div class="block-label">Block: Full-width band</div>
+  <!-- AD SLOT 6: full-width horizontal band -->
+  <div class="ad-slot band-ad" id="ad-band">AD SLOT 6 &mdash; full-width band</div>
+</div>
+
+<!-- ================= CARD GRID ================= -->
+<section class="card-grid">
+  <div class="block-label" style="grid-column: 1 / -1;">Block: Card grid</div>
+  <div class="mini-card">
+    <h4>Docs</h4>
+    <p>Read the integration guide.</p>
+    <!-- AD SLOT 7: in-card -->
+    <div class="ad-slot" id="ad-card-1">AD SLOT 7 &mdash; in-card</div>
+  </div>
+  <div class="mini-card">
+    <h4>Blog</h4>
+    <p>Latest from the team.</p>
+    <!-- AD SLOT 8: in-card -->
+    <div class="ad-slot" id="ad-card-2">AD SLOT 8 &mdash; in-card</div>
+  </div>
+  <div class="mini-card">
+    <h4>Contact</h4>
+    <p>Questions? Reach out.</p>
+    <!-- AD SLOT 9: in-card -->
+    <div class="ad-slot" id="ad-card-3">AD SLOT 9 &mdash; in-card</div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site">
+  <div class="footer-inner">
+    <div class="block-label">Block: Footer</div>
+    <!-- AD SLOT 10: footer banner 970x90 -->
+    <div class="ad-slot footer-ad" id="ad-footer">AD SLOT 10 &mdash; footer 970&times;90</div>
+    &copy; 2026 GitAds Test. Built for ad placement testing.
+  </div>
+</footer>
+
+<!-- ================= FLOATING CORNER (desktop only) ================= -->
+<!-- AD SLOT 11: fixed corner unit, desktop only, overlays content while scrolling -->
+<div class="ad-slot floating-ad" id="ad-floating">AD SLOT 11 &mdash; floating corner</div>
+
+</body>
+</html>
